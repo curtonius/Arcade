@@ -6,12 +6,12 @@ public class Health : MonoBehaviour {
 
     public int hits;
     public bool died;
-
     public int points;
-	public void TakeDamage()
+
+    public void TakeDamage()
     {
         if (gameObject.tag != "Player")
-            GameManager.CurrentScore += points;
+            GameManager.current.AddPoints(points);
         --hits;
         if (hits <= 0)
         {

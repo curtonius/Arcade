@@ -12,7 +12,7 @@ public class HighscoreData : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if(!GameManager.current.playing)
+        if (!GetComponentInParent<GameManager>().playing)
             highscoreText.text = "HIGHSCORE: " + GameManager.HighScore.ToString();
         else
             highscoreText.text = "SCORE: " + GameManager.CurrentScore.ToString();

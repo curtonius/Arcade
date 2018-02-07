@@ -15,7 +15,7 @@ public class LivesData : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!GameManager.current.playing)
+        if (!GetComponentInParent<GameManager>().playing)
             livesText.text = "";
         else
             livesText.text = "LIVES: " + GameManager.lives.ToString();

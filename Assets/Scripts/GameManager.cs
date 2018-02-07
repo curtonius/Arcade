@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour {
-    public static int lives = 3;
+    public static int lives = 6;
     public static int HighScore = 0;
     public static int CurrentScore = 0;
     public int numberOfGames;
@@ -52,23 +52,40 @@ public class GameManager : MonoBehaviour {
             SceneManager.LoadScene(0);
         }
     }
+    public void AddPoints(int points)
+    {
+        CurrentScore += points;
+    }
     public void GetNextGame()
     {
         ++currentGame;
         if (currentGame == numberOfGames)
+        {
+            for(int i=0; i<numberOfGames; ++i)
+        {
+            gameHolder.Add(i);
+        }
+            ArrangeGames();
             currentGame = 0;
+        }
         SceneManager.LoadScene(currentGame+1);
     }
     void Update()
     {
+        if (Input.GetAxisRaw("Cancel") == 1)
+        {
+            //Die();
+            GetNextGame();
+        }
+        if (playing) return;
         if (lives == 0 && CurrentScore > HighScore)
         {
             HighScore = CurrentScore;
             CurrentScore = 0;
-            lives = 3;
         }
         if(Input.GetAxisRaw("Submit") == 1)
         {
+            lives = 3;
             playing = true;
             SceneManager.LoadScene(1);
         }

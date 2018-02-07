@@ -10,19 +10,20 @@ public class Jump : MonoBehaviour {
 
 	public bool IsGrounded()
 	{
-		Physics.Raycast(transform.position, -transform.up, out hit, 0.501f);
-		if(hit.transform != null)
-			return true;
-		
-		return false;
+        Physics.Raycast(transform.position, -transform.up, out hit, 0.85f);
+        if (hit.transform != null)
+            return true;
+
+        return false;
 	}
 	
 	public void JumpUp()
 	{
 		vel = jumpHeight;
 	}
-	
-	void Update () 
+
+
+    void FixedUpdate () 
 	{
 		if(!IsGrounded())
 			vel -= gravity*Time.deltaTime;
