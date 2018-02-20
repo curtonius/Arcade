@@ -6,15 +6,23 @@ public class Shooter : MonoBehaviour {
 	public GameObject bullet;
 	public Transform fireTransform;
 	public float fireRate;
+    public bool doDamage = true;
+    public GameObject sender;
 	private float currentTime;
-	
-	public void Fire()
+
+    void Start()
+    {
+        currentTime = fireRate;
+        if (!sender)
+            sender = gameObject;
+    }
+    public void Fire()
 	{
 		if(currentTime < fireRate) return;
 		currentTime = 0;
 		GameObject shooty = (GameObject)Instantiate(bullet, fireTransform.position, fireTransform.rotation);
-		shooty.GetComponent<RemoveAfterHit>().sender = gameObject;
-        shooty.GetComponent<RemoveAfterHit>().doDamage = true;
+		shooty.GetComponent<RemoveAfterHit>().sender = sender;
+        shooty.GetComponent<RemoveAfterHit>().doDamage = doDamage;
 	}
 	
 	// Update is called once per frame

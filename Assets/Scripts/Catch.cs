@@ -8,6 +8,9 @@ public class Catch : MonoBehaviour
     public bool trigger;
     public bool collision;
 
+    public bool givePointsOnCatch = false;
+    public int pointsToGive;
+
     void OnCollisionEnter(Collision col)
     {
         if (!collision) return;
@@ -22,6 +25,9 @@ public class Catch : MonoBehaviour
                 Destroy(col.gameObject);
             }
         }
+
+        if (givePointsOnCatch)
+            GameManager.CurrentScore += pointsToGive;
     }
 
     void OnTriggerEnter(Collider col)
@@ -38,5 +44,8 @@ public class Catch : MonoBehaviour
                 Destroy(col.gameObject);
             }
         }
+
+        if (givePointsOnCatch)
+            GameManager.CurrentScore += pointsToGive;
     }
 }
