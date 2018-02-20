@@ -2,9 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Xml;
+using System.Xml.Serialization;
+using System.IO;
 
 public class GameManager : MonoBehaviour {
     public static int lives = 6;
+    [XmlAttribute("Highscore")]
     public static int HighScore = 0;
     public static int CurrentScore = 0;
     public int numberOfGames;
@@ -28,6 +32,16 @@ public class GameManager : MonoBehaviour {
         if (FindObjectsOfType(GetType()).Length > 1)
         {
             Destroy(gameObject);
+        }
+        else
+        {
+            XmlSerializer serializer = new XmlSerializer(typeof(int));
+            if (File.Exists(Path.Combine(Application.dataPath, "Highscore.xml")))
+            {
+                FileStream stream = new FileStream(Path.Combine(Application.dataPath, "Highscore.xml"), FileMode.Open);
+                HighScore = (int)serializer.Deserialize(stream);
+                stream.Close();
+            }
         }
         ArrangeGames();
     }
@@ -81,6 +95,10 @@ public class GameManager : MonoBehaviour {
         if (lives == 0 && CurrentScore > HighScore)
         {
             HighScore = CurrentScore;
+            XmlSerializer serializer = new XmlSerializer(typeof(int));
+            FileStream stream = new FileStream(Path.Combine(Application.dataPath, "Highscore.xml"), FileMode.Create);
+            serializer.Serialize(stream, HighScore);
+            stream.Close();
             CurrentScore = 0;
         }
         if(Input.GetAxisRaw("Submit") == 1)
