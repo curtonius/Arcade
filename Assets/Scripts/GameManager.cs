@@ -76,9 +76,9 @@ public class GameManager : MonoBehaviour {
         if (currentGame == numberOfGames)
         {
             for(int i=0; i<numberOfGames; ++i)
-        {
-            gameHolder.Add(i);
-        }
+            {
+                gameHolder.Add(i);
+            }
             ArrangeGames();
             currentGame = 0;
         }
