@@ -24,6 +24,7 @@ void Start()
 		GameObject shooty = (GameObject)Instantiate(bullet, fireTransform.position, fireTransform.rotation);
 		shooty.GetComponent<RemoveAfterHit>().sender = sender;
         shooty.GetComponent<RemoveAfterHit>().doDamage = doDamage;
+        shooty.transform.parent = transform.parent;
 	}
 	
 	// Update is called once per frame

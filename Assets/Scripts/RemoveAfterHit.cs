@@ -8,11 +8,16 @@ public class RemoveAfterHit : MonoBehaviour {
 	public bool collision;
 
     public bool doDamage;
-	
-	void OnCollisionEnter(Collision col)
+
+    private void Start()
+    {
+        if (sender == null)
+            sender = gameObject;
+    }
+    void OnCollisionEnter(Collision col)
 	{
 		if(!collision) return;
-		if(col.gameObject == sender || col.transform.IsChildOf(sender.transform)) return;
+		if(col.gameObject == sender || col.transform.IsChildOf(sender.transform) || sender.transform.IsChildOf(col.gameObject.transform)) return;
 		
         if(doDamage)
         {
@@ -33,7 +38,7 @@ public class RemoveAfterHit : MonoBehaviour {
 	void OnTriggerEnter(Collider col)
 	{
 		if(!trigger) return;
-		if(sender != null && col.gameObject == sender || col.transform.IsChildOf(sender.transform)) return;
+		if(sender != null && col.gameObject == sender || col.transform.IsChildOf(sender.transform) || sender.transform.IsChildOf(col.gameObject.transform)) return;
 
         if (doDamage)
         {
