@@ -47,7 +47,7 @@ public class RemoveAfterHit : MonoBehaviour {
                 }
             }
         }
-
+       
         Destroy(gameObject);
 	}
 }

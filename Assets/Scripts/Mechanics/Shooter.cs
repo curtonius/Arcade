@@ -10,7 +10,8 @@ public class Shooter : MonoBehaviour {
     public GameObject sender;
 	private float currentTime;
 
-    void Start()
+    
+void Start()
     {
         currentTime = fireRate;
         if (!sender)

@@ -6,6 +6,8 @@ public class LookAtMouse : MonoBehaviour {
 	private RaycastHit floorHit;
 	private Ray camRay;
 	private Rigidbody rb;
+
+    public bool useY = false;
 	
 	void Start()
 	{
@@ -19,7 +21,8 @@ public class LookAtMouse : MonoBehaviour {
         {
             if (floorHit.transform != null && floorHit.transform.tag == "Player") return;
             Vector3 playerToMouse = floorHit.point - transform.position;
-            playerToMouse.y = 0;
+            if(!useY)
+                playerToMouse.y = 0;
 
             // Create a quaternion (rotation) based on looking down the vector from the player to the mouse.
             Quaternion newRotation = Quaternion.LookRotation (playerToMouse);
