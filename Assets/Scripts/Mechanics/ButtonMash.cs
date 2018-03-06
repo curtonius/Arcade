@@ -14,7 +14,6 @@ public class ButtonMash : MonoBehaviour {
 	{
 			ready=false;
 			force += threshold*Time.deltaTime;
-        Debug.Log(force);
 	}
 	// Update is called once per frame
 	void Update () 
