@@ -5,6 +5,7 @@ public class ButtonMash : MonoBehaviour {
 
 	public float force;
 	public float threshold;
+    public float removalMult = 1;
 	public string axisName;
     public bool done = false;
 	private bool ready;
@@ -30,7 +31,7 @@ public class ButtonMash : MonoBehaviour {
 		}
 		
 		if(force > 0)
-			force -= Time.deltaTime;
+			force -= Time.deltaTime* removalMult;
 		if(force < 0)
 			force = 0;
 	}
