@@ -10,6 +10,7 @@ public class Discus : MonoBehaviour
     private GameObject newDisc;
     private bool launch;
     private HorizontalMove discMover;
+    private float currentTime = 0;
 	// Use this for initialization
 	void Start () {
         buttonMash = GetComponent<ButtonMash>();
@@ -38,6 +39,14 @@ public class Discus : MonoBehaviour
             newDisc.AddComponent<AutoMove>();
             GameManager.current.AddPoints(100);
             return;
+        }
+        if(launch && currentTime < 5)
+        {
+            currentTime += Time.deltaTime;
+        }
+        else if(launch && currentTime >= 5)
+        {
+            GameManager.current.GetNextGame();
         }
 
         transform.RotateAround(transform.position, Vector3.up, buttonMash.force);

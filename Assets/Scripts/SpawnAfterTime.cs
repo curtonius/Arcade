@@ -9,6 +9,7 @@ public class SpawnAfterTime : MonoBehaviour
     public float timeBeforeSpawnMax;
     private float timeBeforeSpawn;
     private float currentTime;
+    public bool spawnInParent = false;
 
     private void Start()
     {
@@ -21,9 +22,18 @@ public class SpawnAfterTime : MonoBehaviour
             currentTime += Time.deltaTime;
         else
         {
-            Object.Instantiate(prefabList[Random.Range(0, prefabList.Count)], transform.position, transform.rotation);
+            GameObject obj = Object.Instantiate(prefabList[Random.Range(0, prefabList.Count)], transform.position, transform.rotation);
             currentTime = 0;
             timeBeforeSpawn = Random.Range(timeBeforeSpawnMin, timeBeforeSpawnMax);
+            if (spawnInParent)
+            {
+                obj.transform.parent = transform.parent;
+                if (obj.GetComponent<RemoveAfterHit>())
+                    if(transform.parent != null)
+                        obj.GetComponent<RemoveAfterHit>().sender = transform.parent.gameObject;
+                    else
+                        obj.GetComponent<RemoveAfterHit>().sender = transform.gameObject;
+            }
         }
     }
 }
